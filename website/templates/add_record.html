@@ -5,13 +5,13 @@
 
 
 
-<h1>Register</h1>
+<h1>Add Record</h1>
 <br>
 
 
 <div class="col-md-6 offset-md-3">
 
-	<form method="POST" action="">
+	<form method="POST" action="{% url 'add_record' %}">
 		{% csrf_token %}
 		
 		{% if form.errors %}
@@ -31,14 +31,12 @@
 
 		<form>
 		    <br>
-		    <button type="submit" class="btn btn-primary">Register</button>
+		    <a href="{% url 'home' %}" class="btn btn-secondary">Back</a>
+		    <button type="submit" class="btn btn-primary">Add Record</button>
 		</form>
 
 	</form>
 </div>
-
-
-
 
 
 {% endblock %}
