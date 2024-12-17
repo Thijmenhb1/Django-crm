@@ -94,7 +94,7 @@ def add_record(request):
 			if form.is_valid:
 				add_record = form.save()
 				messages.success(request, "Record added successfully")
-				return redirect('home')
+				return redirect('record_list')
 
 		return render(request, 'add_record.html', {'form':form})
 	else:
@@ -124,7 +124,7 @@ def delete_record(request, pk):
 		delete_it = Record.objects.get(id = pk)
 		delete_it.delete()
 		messages.success(request, "Record deleted successfully")
-		return redirect('home')
+		return redirect('record_list')
 
 	else:
 		messages.success(request, "you must be logged in delete records")
@@ -153,7 +153,7 @@ def add_ticket(request):
 			if form.is_valid:
 				add_ticket = form.save()
 				messages.success(request, "Ticket added successfully")
-				return redirect('home')
+				return redirect('ticket_list')
 
 		return render(request, 'add_ticket.html', {'form':form})
 	else:
@@ -195,7 +195,7 @@ def delete_ticket(request, pk):
 		delete_it = Ticket.objects.get(id = pk)
 		delete_it.delete()
 		messages.success(request, "Ticket deleted successfully")
-		return redirect('home')
+		return redirect('ticket_list')
 
 	else:
 		messages.success(request, "you must be logged in delete tickets")

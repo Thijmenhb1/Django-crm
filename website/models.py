@@ -24,7 +24,7 @@ class Ticket(models.Model):
 	description = models.CharField(max_length = 500)
 	status = models.CharField(max_length = 50)
 	priority = models.CharField(max_length = 50)
-	additional_notes = models.CharField(max_length = 2000)
+	notes = models.CharField(max_length = 2000)
 
 	def __str__(self):
 		return f"Ticket: {self.title}, Status: {self.status}"

@@ -6,44 +6,16 @@
 
 {% if user.is_authenticated %}
 
-	<h1>Records...</h1>
+	<h1>Home</h1>
 
-	<table class="table table-striped table-hover">
-		<thead class="table-light">
-			<tr>
-				<th scope="col">id</th>
-				<th scope="col">Name</th>
-				<th scope="col">Email</th>
-				<th scope="col">Phone</th>
-				<th scope="col">City</th>
-				<th scope="col">Zip Code</th>
-				<th scope="col">Address</th>
-				<th scope="col">Created At</th>
-			</tr>
-		</thead>
-		<tbody>	
-			 
-			{% if records %}
+		<br>
+		<br>
 
-				{% for record in records %}
-					<tr>
-						<td><a href="{% url 'record' record.id %}">{{ record.id }}</a></td>
-						<td>{{ record.first_name }} {{ record.last_name }}</td>
-						<td>{{ record.email }}</td>
-						<td>{{ record.phone }}</td>
-						<td>{{ record.city }}</td>
-						<td>{{ record.zip_code }}</td>
-						<td>{{ record.address }}</td>
-						<td>{{ record.created_at }}</td>
-					</tr>
-				{% endfor %}
+		<!-- Edit record -->
+		<a href="{% url 'record_list' %}" class="btn btn-primary">Records</a>
 
-			{% endif %}
-			
-		</tbody>
-	</table>
-
-
+		<!-- Delete record -->
+		<a href="{% url 'ticket_list' %}" class="btn btn-secondary">Tickets</a>
 
 
 

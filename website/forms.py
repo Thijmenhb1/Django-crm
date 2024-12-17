@@ -62,7 +62,7 @@ class AddTicketForm(forms.ModelForm):
 	PRIORITY_CHOICES = [('low', 'Low'),('medium', 'Medium'),('high', 'High'),]
 	priority = forms.ChoiceField(required=True,choices=PRIORITY_CHOICES, widget=forms.Select(attrs={"class": "form-control"}), label="Priority")
 	
-	additional_notes = forms.CharField(required=True, widget=forms.widgets.Textarea(attrs={"placeholder":"Additional notes", "class":"form-control"}), label="")
+	notes = forms.CharField(required=True, widget=forms.widgets.Textarea(attrs={"placeholder":"Notes", "class":"form-control"}), label="")
 
 	class Meta:
 		model = Ticket

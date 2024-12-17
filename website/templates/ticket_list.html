@@ -6,7 +6,11 @@
 
 {% if user.is_authenticated %}
 
-	<h1>Tickets...</h1>
+	<h1>Tickets</h1>
+
+	<a href="{% url 'add_ticket' %}" class="btn btn-primary">Add Ticket</a>
+	<br>
+	<br>
 
 	<table class="table table-striped table-hover">
 		<thead class="table-light">
@@ -16,7 +20,7 @@
 				<th scope="col">Description</th>
 				<th scope="col">Status</th>
 				<th scope="col">Priority</th>
-				<th scope="col">Additional notes</th>
+				<th scope="col">Notes</th>
 				<th scope="col">Created At</th>
 				<th scope="col">Last updated</th>
 			</tr>
@@ -32,7 +36,7 @@
 						<td>{{ ticket.description|truncatechars:50 }}</td>
 						<td>{{ ticket.status }}</td>
 						<td>{{ ticket.priority }}</td>
-						<td>{{ ticket.additional_notes|truncatechars:50 }}</td>
+						<td>{{ ticket.notes|truncatechars:50 }}</td>
 						<td>{{ ticket.created_at }}</td>
 						<td>{{ ticket.last_updated }}</td>
 					</tr>
