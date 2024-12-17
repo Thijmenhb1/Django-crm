@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+
+
+<div class="card">
+	<div class="card-header">
+		<b>{{ customer_ticket.title }}</b>
+
+	</div>
+	<div class="card-body">
+		<p class="card-text"><b>Ticket ID: </b>{{ customer_ticket.id }}</p>
+		<p class="card-text"><b>Description: </b>{{ customer_ticket.description }}</p>
+		<p class="card-text"><b>Status: </b>{{ customer_ticket.status }}</p>
+		<p class="card-text"><b>Priority: </b>{{ customer_ticket.priority }}</p>
+		<p class="card-text"><b>Additional notes: </b>{{ customer_ticket.additional_notes }}</p>
+		<p class="card-text"><b>Created At: </b>{{ customer_ticket.created_at }}</p>
+		<p class="card-text"><b>Last updated: </b>{{ customer_ticket.last_updated }}</p>
+
+	</div>
+
+	<div class="card-footer">
+		<!-- Edit ticket -->
+		<a href="{% url 'update_ticket' customer_ticket.id %}" class="btn btn-primary">Edit</a>
+
+		<!-- Delete ticket -->
+		<a href="{% url 'delete_ticket' customer_ticket.id %}" class="btn btn-danger">Delete</a>
+	</div>
+</div>
+
+<br>
+<br>
+
+<!-- Back to homepage -->
+<a href="{% url 'ticket_list' %}" class="btn btn-secondary">Back</a>
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

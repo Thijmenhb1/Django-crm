@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
-from .models import Record
+from .models import Record, Ticket
 
 class SignUpForm(UserCreationForm):
 	email = forms.EmailField(label="", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Email Address'}))
@@ -48,3 +48,22 @@ class AddRecordForm(forms.ModelForm):
 	class Meta:
 		model = Record
 		exclude = ("user",)
+
+
+# Create Add Ticket Form
+class AddTicketForm(forms.ModelForm):
+
+	title = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Title", "class":"form-control"}), label="")
+	description = forms.CharField(required=True, widget=forms.widgets.Textarea(attrs={"placeholder":"Description", "class":"form-control"}), label="")
+
+	STATUS_CHOICES = [('open', 'Open'),('in_progress', 'In progress'),('done', 'Done'),]
+	status = forms.ChoiceField(required=True,choices=STATUS_CHOICES, widget=forms.Select(attrs={"class": "form-control"}), label="Status")
+
+	PRIORITY_CHOICES = [('low', 'Low'),('medium', 'Medium'),('high', 'High'),]
+	priority = forms.ChoiceField(required=True,choices=PRIORITY_CHOICES, widget=forms.Select(attrs={"class": "form-control"}), label="Priority")
+	
+	additional_notes = forms.CharField(required=True, widget=forms.widgets.Textarea(attrs={"placeholder":"Additional notes", "class":"form-control"}), label="")
+
+	class Meta:
+		model = Ticket
+		exclude = ("user",)		
