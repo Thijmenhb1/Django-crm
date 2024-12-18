@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+	<div class="card">
+		<div class="card-header">
+			<b>{{ view_client.first_name }} {{ view_client.last_name }}</b>
+
+		</div>
+		
+		<div class="card-body">
+			<p class="card-text"><b>Client ID: </b>{{ view_client.id }}</p>
+			<p class="card-text"><b>Email Address: </b>{{ view_client.email }}</p>
+			<p class="card-text"><b>Phone Number: </b>{{ view_client.phone }}</p>
+			<p class="card-text"><b>City: </b>{{ view_client.city }}</p>
+			<p class="card-text"><b>Zip Code: </b>{{ view_client.zip_code }}</p>
+			<p class="card-text"><b>Address: </b>{{ view_client.address }}</p>
+			<p class="card-text"><b>Registered At: </b>{{ view_client.created_at }}</p>
+
+		</div>
+
+		<div class="card-footer">
+			<!-- Edit client -->
+			<a href="{% url 'update_client' view_client.id %}" class="btn btn-primary">Edit</a>
+
+			<!-- Delete client -->
+			<a href="{% url 'delete_client' view_client.id %}" class="btn btn-danger">Delete</a>
+
+		</div>
+
+	</div>
+
+	<br>
+	<br>
+
+
+	<div class="d-grid gap-2 col-6 mx-auto">
+		<a href="{% url 'client_list' %}" class="btn btn-secondary">Back</a>
+
+	</div>
+
+{% endblock %}

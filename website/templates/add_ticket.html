@@ -1,42 +1,48 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
 
 
 
-<h1>Add Ticket</h1>
-<br>
+	<div class="col-md-6 offset-md-3">
+		<h1>Add Ticket</h1>
+		<br>
 
+		<form method="POST" action="{% url 'add_ticket' %}">
+			{% csrf_token %}
+			
+			{% if form.errors %}
+				<div class="alert alert-warning alert-dismissible fade show" role="alert">
 
-<div class="col-md-6 offset-md-3">
+					Your Form Has Errors
 
-	<form method="POST" action="{% url 'add_ticket' %}">
-		{% csrf_token %}
-		
-		{% if form.errors %}
-			<div class="alert alert-warning alert-dismissible fade show" role="alert">
-			  Your Form Has Errors
-			  {% for field in form %}
-			  	{% if field.errors %}
-			  		{{ field.errors }}
-			  	{% endif %}
-			  {% endfor %}
-			  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-			</div>
-		{% endif %}
+					{% for field in form %}
+						{% if field.errors %}
 
+							{{ field.errors }}
 
-		{{ form.as_p }}
+						{% endif %}
 
-		<form>
-		    <br>
-		    <a href="{% url 'home' %}" class="btn btn-secondary">Back</a>
-		    <button type="submit" class="btn btn-primary">Add Ticket</button>
+					{% endfor %}
+
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+				</div>
+
+			{% endif %}
+
+			{{ form.as_p }}
+
+			<br>
+			
+			<a href="{% url 'ticket_list' %}" class="btn btn-secondary">Back</a>
+			<button type="submit" class="btn btn-primary">Add Ticket</button>
+
 		</form>
 
-	</form>
-</div>
+	</div>
 
+	<br>
+	<br>
 
 {% endblock %}

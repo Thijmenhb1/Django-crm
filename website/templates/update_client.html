@@ -2,10 +2,10 @@
 
 {% block content %}
 
-
-
 	<div class="col-md-6 offset-md-3">
-		<h1>Update Ticket</h1>
+
+		<h1>Update Client Info</h1>
+
 		<br>
 
 		<form method="POST">
@@ -15,10 +15,9 @@
 				<div class="alert alert-warning alert-dismissible fade show" role="alert">
 
 					Your Form Has Errors
-
+					
 					{% for field in form %}
 						{% if field.errors %}
-
 							{{ field.errors }}
 
 						{% endif %}
@@ -28,15 +27,13 @@
 					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 
 				</div>
-
 			{% endif %}
 
 			{{ form.as_p }}
 
-			<br>
-			
-			<a href="{% url 'ticket' current_ticket.id %}" class="btn btn-secondary">Back</a>
-			<button type="submit" class="btn btn-success">Save Changes</button>
+				<br>
+				<a href="{% url 'client' current_client.id %}" class="btn btn-secondary">Back</a>
+				<button type="submit" class="btn btn-success">Save Changes</button>
 
 		</form>
 

@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .forms import SignUpForm, AddRecordForm, AddTicketForm
-from .models import Record, Ticket
+from .forms import SignUpForm, AddClientForm, AddTicketForm
+from .models import Client, Ticket
 
 def home(request):
-	records = Record.objects.all()
+	clients = Client.objects.all()
 
 
 	#Check if logged in
@@ -26,20 +26,19 @@ def home(request):
 			return redirect('home')
 
 	else:
-		return render(request, 'home.html', {'records':records})
+		return render(request, 'home.html', {'clients':clients})
 
 
 
 
-
-
+# Logout function
 def logout_user(request):
 	logout(request)
 	messages.success(request, "You've been logged out successfully")
 	return redirect('home')
 
 
-
+# Register function
 def register_user(request):
 	if request.method == 'POST':
 		form = SignUpForm(request.POST)
@@ -63,12 +62,11 @@ def register_user(request):
 
 
 
-
-
-def record_list(request):
+# Client functions
+def client_list(request):
 	if request.user.is_authenticated:
-		records = Record.objects.all()
-		return render(request, 'record_list.html', {'records':records})
+		clients = Client.objects.all()
+		return render(request, 'client_list.html', {'clients':clients})
 
 	else:
 		messages.success(request, "you must be logged in to view this page")
@@ -76,10 +74,10 @@ def record_list(request):
 
 
 
-def customer_record(request, pk):
+def view_client(request, pk):
 	if request.user.is_authenticated:
-		customer_record = Record.objects.get(id = pk)
-		return render(request, 'record.html', {'customer_record': customer_record})
+		view_client = Client.objects.get(id = pk)
+		return render(request, 'client.html', {'view_client': view_client})
 
 	else:
 		messages.success(request, "you must be logged in to view this page")
@@ -87,54 +85,55 @@ def customer_record(request, pk):
 
 
 
-def add_record(request):
-	form = AddRecordForm(request.POST or None)
+def add_client(request):
+	form = AddClientForm(request.POST or None)
 	if request.user.is_authenticated:
 		if request.method == "POST":
 			if form.is_valid:
-				add_record = form.save()
-				messages.success(request, "Record added successfully")
-				return redirect('record_list')
+				add_client = form.save()
+				messages.success(request, "Client added successfully")
+				return redirect('client_list')
 
-		return render(request, 'add_record.html', {'form':form})
+		return render(request, 'add_client.html', {'form':form})
+
 	else:
-		messages.success(request, "You must be logged in to add records")
+		messages.success(request, "You must be logged in to add clients")
 		return redirect('home')
 
 
-def update_record(request, pk):
+
+def update_client(request, pk):
 	if request.user.is_authenticated:
-		current_record = Record.objects.get(id=pk)
-		form = AddRecordForm(request.POST or None, instance=current_record)
+		current_client = Client.objects.get(id=pk)
+		form = AddClientForm(request.POST or None, instance=current_client)
 		if form.is_valid():
 			form.save()
-			messages.success(request, "Record updated successfully")
-			return redirect('record', pk=current_record.id)
+			messages.success(request, "Client updated successfully")
+			return redirect('client', pk=current_client.id)
 
-		return render(request, 'update_record.html', {'form': form, 'current_record': current_record})
+		return render(request, 'update_client.html', {'form': form, 'current_client': current_client})
 
 	else:
-		messages.success(request, "You must be logged in to update records")
+		messages.success(request, "You must be logged in to update clients")
 		return redirect('home')
 
 
 
-def delete_record(request, pk):
+def delete_client(request, pk):
 	if request.user.is_authenticated:
-		delete_it = Record.objects.get(id = pk)
+		delete_it = Client.objects.get(id = pk)
 		delete_it.delete()
-		messages.success(request, "Record deleted successfully")
-		return redirect('record_list')
+		messages.success(request, "Client deleted successfully")
+		return redirect('client_list')
 
 	else:
-		messages.success(request, "you must be logged in delete records")
+		messages.success(request, "you must be logged in delete clients")
 		return redirect('home')
 
 
 
 
-
-
+# Ticket functions
 def ticket_list(request):
 	if request.user.is_authenticated:
 		tickets = Ticket.objects.all()
@@ -156,16 +155,17 @@ def add_ticket(request):
 				return redirect('ticket_list')
 
 		return render(request, 'add_ticket.html', {'form':form})
+		
 	else:
 		messages.success(request, "You must be logged in to add tickets")
 		return redirect('home')
 
 
 
-def customer_ticket(request, pk):
+def view_ticket(request, pk):
 	if request.user.is_authenticated:
-		customer_ticket = Ticket.objects.get(id = pk)
-		return render(request, 'ticket.html', {'customer_ticket': customer_ticket})
+		view_ticket = Ticket.objects.get(id = pk)
+		return render(request, 'ticket.html', {'view_ticket': view_ticket})
 
 	else:
 		messages.success(request, "you must be logged in to view this page")

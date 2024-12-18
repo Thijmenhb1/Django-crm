@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
-from .models import Record, Ticket
+from .models import Client, Ticket
 
 class SignUpForm(UserCreationForm):
 	email = forms.EmailField(label="", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Email Address'}))
@@ -35,26 +35,26 @@ class SignUpForm(UserCreationForm):
 
 
 
-# Create Add Record Form
-class AddRecordForm(forms.ModelForm):
-	first_name = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"First Name", "class":"form-control"}), label="")
-	last_name = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Last Name", "class":"form-control"}), label="")
-	email = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Email", "class":"form-control"}), label="")
-	phone = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Phone", "class":"form-control"}), label="")
-	address = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Address", "class":"form-control"}), label="")
-	city = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"City", "class":"form-control"}), label="")
-	zip_code = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Zip code", "class":"form-control"}), label="")
+# Create Add Client Form
+class AddClientForm(forms.ModelForm):
+	first_name = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"First Name", "class":"form-control"}), label="First Name")
+	last_name = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Last Name", "class":"form-control"}), label="Last Name")
+	email = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Email", "class":"form-control"}), label="Email")
+	phone = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Phone", "class":"form-control"}), label="Phone Number")
+	address = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Address", "class":"form-control"}), label="Address")
+	city = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"City", "class":"form-control"}), label="City")
+	zip_code = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Zip code", "class":"form-control"}), label="Zip Code")
 
 	class Meta:
-		model = Record
+		model = Client
 		exclude = ("user",)
 
 
 # Create Add Ticket Form
 class AddTicketForm(forms.ModelForm):
 
-	title = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Title", "class":"form-control"}), label="")
-	description = forms.CharField(required=True, widget=forms.widgets.Textarea(attrs={"placeholder":"Description", "class":"form-control"}), label="")
+	title = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Title", "class":"form-control"}), label="Title")
+	description = forms.CharField(required=True, widget=forms.widgets.Textarea(attrs={"placeholder":"Description", "class":"form-control"}), label="Description")
 
 	STATUS_CHOICES = [('open', 'Open'),('in_progress', 'In progress'),('done', 'Done'),]
 	status = forms.ChoiceField(required=True,choices=STATUS_CHOICES, widget=forms.Select(attrs={"class": "form-control"}), label="Status")
@@ -62,7 +62,7 @@ class AddTicketForm(forms.ModelForm):
 	PRIORITY_CHOICES = [('low', 'Low'),('medium', 'Medium'),('high', 'High'),]
 	priority = forms.ChoiceField(required=True,choices=PRIORITY_CHOICES, widget=forms.Select(attrs={"class": "form-control"}), label="Priority")
 	
-	notes = forms.CharField(required=True, widget=forms.widgets.Textarea(attrs={"placeholder":"Notes", "class":"form-control"}), label="")
+	notes = forms.CharField(required=True, widget=forms.widgets.Textarea(attrs={"placeholder":"Notes", "class":"form-control"}), label="Notes")
 
 	class Meta:
 		model = Ticket
