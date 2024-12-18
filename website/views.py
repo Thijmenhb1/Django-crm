@@ -136,13 +136,6 @@ def delete_client(request, pk):
 
 
 
-from django.shortcuts import render
-from .models import Ticket
-
-
-
-
-
 
 
 def ticket_list(request):
@@ -170,7 +163,7 @@ def ticket_list(request):
 		return redirect('home')
 
 
-
+		
 def add_ticket(request):
 	form = AddTicketForm(request.POST or None)
 	if request.user.is_authenticated:
