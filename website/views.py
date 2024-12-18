@@ -158,12 +158,14 @@ def ticket_list(request):
 		else:
 			tickets = tickets.order_by('created_at')
 
+		return render(request, 'ticket_list.html', {'tickets': tickets,'status_filter': status_filter,'priority_filter': priority_filter,'date_filter': date_filter,})
+
 	else:
 		messages.success(request, "you must be logged in to view this page")
 		return redirect('home')
 
 
-		
+
 def add_ticket(request):
 	form = AddTicketForm(request.POST or None)
 	if request.user.is_authenticated:
