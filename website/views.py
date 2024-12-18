@@ -3,6 +3,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import SignUpForm, AddClientForm, AddTicketForm
 from .models import Client, Ticket
+from django.db.models import Case, When, Value, IntegerField
+
+
+
 
 def home(request):
 	clients = Client.objects.all()
@@ -132,12 +136,34 @@ def delete_client(request, pk):
 
 
 
+from django.shortcuts import render
+from .models import Ticket
 
-# Ticket functions
+
+
+
+
+
+
 def ticket_list(request):
 	if request.user.is_authenticated:
+
+		status_filter = request.GET.get('status', 'all')
+		priority_filter = request.GET.get('priority', 'all')
+		date_filter = request.GET.get('date', 'asc')  
+
 		tickets = Ticket.objects.all()
-		return render(request, 'ticket_list.html', {'tickets':tickets})
+
+		if status_filter != 'all':
+			tickets = tickets.filter(status=status_filter)
+
+		if priority_filter != 'all':
+			tickets = tickets.filter(priority=priority_filter)
+		
+		if date_filter == 'desc':
+			tickets = tickets.order_by('-created_at')
+		else:
+			tickets = tickets.order_by('created_at')
 
 	else:
 		messages.success(request, "you must be logged in to view this page")
@@ -155,7 +181,7 @@ def add_ticket(request):
 				return redirect('ticket_list')
 
 		return render(request, 'add_ticket.html', {'form':form})
-		
+
 	else:
 		messages.success(request, "You must be logged in to add tickets")
 		return redirect('home')

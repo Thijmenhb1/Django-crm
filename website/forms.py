@@ -56,7 +56,7 @@ class AddTicketForm(forms.ModelForm):
 	title = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Title", "class":"form-control"}), label="Title")
 	description = forms.CharField(required=True, widget=forms.widgets.Textarea(attrs={"placeholder":"Description", "class":"form-control"}), label="Description")
 
-	STATUS_CHOICES = [('open', 'Open'),('in_progress', 'In progress'),('done', 'Done'),]
+	STATUS_CHOICES = [('open', 'Open'),('in progress', 'In progress'),('done', 'Done'),]
 	status = forms.ChoiceField(required=True,choices=STATUS_CHOICES, widget=forms.Select(attrs={"class": "form-control"}), label="Status")
 
 	PRIORITY_CHOICES = [('low', 'Low'),('medium', 'Medium'),('high', 'High'),]

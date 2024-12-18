@@ -3,12 +3,62 @@
 {% block content %}
 
 	{% if user.is_authenticated %}
-	
+
 		<h1>Tickets</h1>
 
 		<a href="{% url 'add_ticket' %}" class="btn btn-primary">Add Ticket</a>
 
 		<br>
+		<br>
+
+		<form method="get">
+			<div class="row">
+
+				<div class="col-auto">
+					<label for="status">Status:</label>
+					<div class="dropdown d-inline-block">
+						<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownStatus" data-bs-toggle="dropdown" aria-expanded="false">
+							{% if status_filter == 'all' %}All{% else %}{{ status_filter|title }}{% endif %}
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownStatus">
+							<li><a class="dropdown-item" href="?status=all&priority={{ priority_filter }}&date={{ date_filter }}">All</a></li>
+							<li><a class="dropdown-item" href="?status=open&priority={{ priority_filter }}&date={{ date_filter }}">Open</a></li>
+							<li><a class="dropdown-item" href="?status=in progress&priority={{ priority_filter }}&date={{ date_filter }}">In Progress</a></li>
+							<li><a class="dropdown-item" href="?status=done&priority={{ priority_filter }}&date={{ date_filter }}">Done</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="col-auto">
+					<label for="priority">Priority:</label>
+					<div class="dropdown d-inline-block">
+						<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownPriority" data-bs-toggle="dropdown" aria-expanded="false">
+							{% if priority_filter == 'all' %}All{% else %}{{ priority_filter|title }}{% endif %}
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownPriority">
+							<li><a class="dropdown-item" href="?priority=all&status={{ status_filter }}&date={{ date_filter }}">All</a></li>
+							<li><a class="dropdown-item" href="?priority=low&status={{ status_filter }}&date={{ date_filter }}">Low</a></li>
+							<li><a class="dropdown-item" href="?priority=medium&status={{ status_filter }}&date={{ date_filter }}">Medium</a></li>
+							<li><a class="dropdown-item" href="?priority=high&status={{ status_filter }}&date={{ date_filter }}">High</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="col-auto">
+					<label for="date">Date:</label>
+					<div class="dropdown d-inline-block">
+						<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownDate" data-bs-toggle="dropdown" aria-expanded="false">
+							{% if date_filter == 'asc' %}Ascending{% elif date_filter == 'desc' %}Descending{% else %}Date{% endif %}
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownDate">
+							<li><a class="dropdown-item" href="?date=asc&status={{ status_filter }}&priority={{ priority_filter }}">Ascending</a></li>
+							<li><a class="dropdown-item" href="?date=desc&status={{ status_filter }}&priority={{ priority_filter }}">Descending</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</form>
+
 		<br>
 
 		<table class="table table-striped table-hover">
